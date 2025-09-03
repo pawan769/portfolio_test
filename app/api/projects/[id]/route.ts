@@ -1,8 +1,31 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prismaClient";
 
+// Get a project by ID
+export async function GET(req: Request, { params }: any) {
+  try {
+    const { id } = params;
+
+    const project = await prisma.project.findUnique({
+      where: { id },
+    });
+
+    if (!project) {
+      return NextResponse.json({ error: "Project not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(project, { status: 200 });
+  } catch (error) {
+    console.error("Error fetching project:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
+
 // Update a project by ID
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, { params }: any) {
   try {
     const { id } = params;
     const body = await req.json();
@@ -16,7 +39,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
         coverUrl,
         liveUrl,
         repoUrl,
-        tag, 
+        tag,
       },
     });
 
@@ -31,7 +54,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 }
 
 // Delete a project by ID
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, { params }: any) {
   try {
     const { id } = params;
 

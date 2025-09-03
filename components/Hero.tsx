@@ -23,14 +23,14 @@ const Hero = () => {
           className="text-4xl md:text-5xl font-extrabold"
         />
         <FadeInFromBottom>
-          <p className="mt-6 text-lg text-gray-300">
+          <p className="my-6 text-lg text-gray-300">
             Hi, I am <span className="font-bold">PAWAN BHANDARI</span>. Welcome
             to my portfolio.
           </p>
         </FadeInFromBottom>
 
         <FadeInFromBottom delay={1.5}>
-          <PrimaryButton className="mt-7">Download resume</PrimaryButton>
+          <PrimaryButton  href="/resume.pdf" download>Download resume</PrimaryButton>
         </FadeInFromBottom>
       </div>
     </section>
